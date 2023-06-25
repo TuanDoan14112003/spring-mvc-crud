@@ -22,11 +22,17 @@ public class EmployeeController {
 	}
 
 	@GetMapping("/list")
-	public String listEmployees(Model theModel) {
+	public String listEmployees(Model model) {
 		List<Employee> employees = employeeService.findAll();
 
-		theModel.addAttribute("employees", employees);
+		model.addAttribute("employees", employees);
 		return "employees/list-employees";
+	}
+
+	@GetMapping("showFormForAdd")
+	public String showForm(Model model) {
+		model.addAttribute("employee",new Employee());
+		return "employees/employee-form";
 	}
 }
 
