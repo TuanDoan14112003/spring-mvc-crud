@@ -5,10 +5,8 @@ import com.tuandoan.springmvcdemo.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Controller
@@ -31,9 +29,15 @@ public class EmployeeController {
 		return "employees/list-employees";
 	}
 
-	@GetMapping("showFormForAdd")
+	@GetMapping("/showFormForAdd")
 	public String showEmployeeForm(Model model) {
 		model.addAttribute("employee", new Employee());
+		return "employees/employee-form";
+	}
+
+	@GetMapping("/showFormForUpdate")
+	public String showEmployeeUpdate(@RequestParam("employeeId") int id, Model model) {
+		model.addAttribute("employee", employeeService.findById(id));
 		return "employees/employee-form";
 	}
 
